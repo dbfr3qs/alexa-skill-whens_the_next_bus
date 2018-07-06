@@ -1,0 +1,5 @@
+pytest
+requests
+ask_sdk_core
+boto3
+botocore

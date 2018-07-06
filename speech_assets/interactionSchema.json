@@ -1,0 +1,41 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "when is the next wellington number seven bus",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "NextBusIntent",
+                    "slots": [],
+                    "samples": [
+                        "when's the next bus",
+                        "when is the next bus",
+                        "when is the next bus due",
+                        "when's the next bus due",
+                        "when will the next bus arrive",
+                        "when's the next number seven",
+                        "when is the next number seven",
+                        "when is the next number seven bus",
+                        "when's the next number seven bus"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}
