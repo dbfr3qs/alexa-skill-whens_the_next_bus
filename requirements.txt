@@ -1,4 +1,5 @@
 pytest
+flake8
 requests
 ask_sdk_core
 boto3

@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "when is the next wellington number seven bus",
+            "invocationName": "when is the next wellington bus",
             "intents": [
                 {
                     "name": "AMAZON.FallbackIntent",
@@ -23,6 +23,7 @@
                     "name": "NextBusIntent",
                     "slots": [],
                     "samples": [
+                        "the next bus",
                         "when's the next bus",
                         "when is the next bus",
                         "when is the next bus due",

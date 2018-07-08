@@ -22,7 +22,7 @@ def get_hour(time):
 
 def get_minutes(time):
     d = datetime.strptime(time, "%Y-%m-%dT%H:%M:%S+12:00")
-    return d.minute
+    return (d.minute if d.minute > 9 else "oh {0}".format(d.minute))
 
 class LaunchRequestHandler(AbstractRequestHandler):
     # Handler for Skill Launch
@@ -30,12 +30,6 @@ class LaunchRequestHandler(AbstractRequestHandler):
         return is_request_type("LaunchRequest")(handler_input)
 
     def handle(self, handler_input):
-        speech_text = """Welcome to the next bus skill. You can ask when the 
-                        next bus will arrive by saying Alexa, when's the next bus?"""
-
-        handler_input.response_builder.speak(speech_text).set_card(
-            SimpleCard("Next Bus", speech_text)).set_should_end_session(
-            False)
         return handler_input.response_builder.response
 
 
@@ -50,7 +44,7 @@ class NextBusIntentHandler(AbstractRequestHandler):
         hour = get_hour(d_time)
         minutes = get_minutes(d_time)
         speech_text = "The next bus is due at {0} {1}".format(hour, minutes)
-
+        print(handler_input.request_envelope.session.user.user_id)
         handler_input.response_builder.speak(speech_text).set_card(
             SimpleCard("When's the next bus?", speech_text)).set_should_end_session(
             True)
@@ -67,7 +61,7 @@ class HelpIntentHandler(AbstractRequestHandler):
 
         handler_input.response_builder.speak(speech_text).ask(
             speech_text).set_card(SimpleCard(
-                "Hello World", speech_text))
+                "When's the next bus?", speech_text))
         return handler_input.response_builder.response
 
 
@@ -81,7 +75,7 @@ class CancelOrStopIntentHandler(AbstractRequestHandler):
         speech_text = "Goodbye!"
 
         handler_input.response_builder.speak(speech_text).set_card(
-            SimpleCard("Hello World", speech_text))
+            SimpleCard("When's the next bus?", speech_text))
         return handler_input.response_builder.response
 
 

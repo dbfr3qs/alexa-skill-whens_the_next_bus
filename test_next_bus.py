@@ -54,3 +54,7 @@ def test_get_minutes():
         d_time = services['Services'][0]['ExpectedDeparture']
         minutes = get_minutes(d_time)
         assert minutes == 33
+
+        d_time = '2018-07-06T13:02:00+12:00'
+        minutes = get_minutes(d_time)
+        assert minutes == "oh 2"

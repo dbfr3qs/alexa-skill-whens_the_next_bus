@@ -7,18 +7,19 @@ This is a very simple Alexa skill which allows the user to configure their close
 Invocate by saying:
 
 ```
-Alexa, when is the next wellington bus
+Alexa, tell me when is the next bus
 ```
 
-Configure a stop by telling Alexa your preferred stop number:
+If you have not yet set a stop, Alexa will ask you for your preferred stop number.
+
+You can also ask for a specific stop at any time:
+
 ```
-Alexa, my preferred stop is stop 7726
+Alexa, tell me when is the next bus at stop {your-stop}
 ```
 
-Ask Alexa when's the next bus:
-```
-Alexa, when's the next bus?
-```
+When invoked this way, Alexa will ask you if you want to set your preferred stop to this stop.
+
 
 ## Development ##
 
