@@ -40,7 +40,9 @@ class NextBusIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         bus = get_next_bus()
+        print(bus)
         d_time = bus['ExpectedDeparture']
+        print(d_time)
         hour = get_hour(d_time)
         minutes = get_minutes(d_time)
         speech_text = "The next bus is due at {0} {1}".format(hour, minutes)
