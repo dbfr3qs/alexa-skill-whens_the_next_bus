@@ -25,11 +25,11 @@ resource "aws_lambda_permission" "with_alexa" {
 }
 
 resource "aws_lambda_function" "get_bus_lambda" {
-  filename         = "lambda_handler.zip"
+  filename         = "../lambda_handler.zip"
   function_name    = "get_bus_lambda"
   role             = "arn:aws:iam::750090735300:role/executionrole"
   handler          = "next_bus.handler"
-  source_code_hash = "${base64sha256(file("lambda_handler.zip"))}"
+  source_code_hash = "${base64sha256(file("../lambda_handler.zip"))}"
   runtime          = "python3.6"
 }
 

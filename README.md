@@ -26,13 +26,14 @@ When invoked this way, Alexa will ask you if you want to set your preferred stop
 ```bash
 python3 -m venv .venv
 . .venv/bin/activate.fish
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 pytest
 ```
 
 To deploy to AWS Lambda, make sure you're authenticated in the command line and that you have terraform installed:
 
 ```
+cd infra
 terraform init
 terraform plan
 terraform apply
