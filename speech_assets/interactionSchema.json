@@ -4,6 +4,17 @@
             "invocationName": "when is the next wellington bus",
             "intents": [
                 {
+                    "name": "AMAZON.YesIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.BusStopIntent",
+                    "type": "AMAZON.NUMBER",
+                    "samples":[
+                        "{number}"
+                    ]
+                },
+                {
                     "name": "AMAZON.FallbackIntent",
                     "samples": []
                 },

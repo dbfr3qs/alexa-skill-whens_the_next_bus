@@ -5,7 +5,7 @@ from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.dispatch_components import AbstractExceptionHandler
 from ask_sdk_core.utils import is_request_type, is_intent_name
 from ask_sdk_model.ui import SimpleCard
-
+from user_id_bus_table import get_user_bus_stop, put_user_bus_stop
 sb = SkillBuilder()
 
 def get_next_bus(stop=7726):
@@ -39,19 +39,60 @@ class NextBusIntentHandler(AbstractRequestHandler):
         return is_intent_name("NextBusIntent")(handler_input)
 
     def handle(self, handler_input):
-        bus = get_next_bus()
+        print(handler_input.request_envelope.session.user.user_id)
+        bus_stop = get_user_bus_stop(handler_input.request_envelope.session.user.user_id)
+        if bus_stop:
+            bus = get_next_bus()
+            print(bus)
+            d_time = bus['ExpectedDeparture']
+            print(d_time)
+            hour = get_hour(d_time)
+            minutes = get_minutes(d_time)
+            speech_text = "The next bus is due at {0} {1}".format(hour, minutes)
+            handler_input.response_builder.speak(speech_text).set_card(
+                SimpleCard("When's the next bus?", speech_text)).set_should_end_session(
+                True)
+        else:
+            attr = handler_input.attributes_manager.persistent_attributes
+            attr['bus_ stop'] = 'unknown'
+            handler_input.attributes_manager.persistent_attributes = attr
+            speech_text = 'It looks like you have not yet set a default bus stop. Would you like to set one?'
+            handler_input.response_builder.speak(speech_text).set_should_end_session(False)
+        return handler_input.response_builder.response
+
+class YesIntentHandler(AbstractRequestHandler):
+    # Handler for Yes Intent
+    def can_handle(self, handler_input):
+        return is_intent_name("YesIntent")(handler_input)
+
+    def handle(self, handler_input):
+        attr = handler_input.attributes_manager.persistent_attributes
+        if 'bus_stop' in attr:
+            if attr['bus_stop'] == 'unknown':
+                speech_text = "Please state the number of your default bus stop"
+                handler_input.response_builder.speak(speech_text).set_should_end_session(False)
+        return handler_input.response_builder.response
+
+class BusStopIntentHandler(AbstractRequestHandler):
+    # Handler for Yes Intent
+    def can_handle(self, handler_input):
+        return is_intent_name("BusStopIntent")(handler_input)
+        
+    def handle(self, handler_input):
+        stop_id = int(handler_input.request_envelope.request.intent.slots[
+        "number"].value)
+        put_user_bus_stop(handler_input.request_envelope.session.user.user_id, stop_id)
+        bus = get_next_bus(stop_id)
         print(bus)
         d_time = bus['ExpectedDeparture']
         print(d_time)
         hour = get_hour(d_time)
         minutes = get_minutes(d_time)
         speech_text = "The next bus is due at {0} {1}".format(hour, minutes)
-        print(handler_input.request_envelope.session.user.user_id)
         handler_input.response_builder.speak(speech_text).set_card(
             SimpleCard("When's the next bus?", speech_text)).set_should_end_session(
             True)
         return handler_input.response_builder.response
-
 
 class HelpIntentHandler(AbstractRequestHandler):
     # Handler for Help Intent
