@@ -35,10 +35,12 @@ def get_user_bus_stop(user_id):
     )
 
     item = {}
-    if 'UserId' in response['Item']:
-        item = {
-            'user_id': response['Item']['UserId']['S'],
-            'stop_id': int(response['Item']['StopId']['N'])
-        }
+    print(response)
+    if 'Item' in response:
+        if 'UserId' in response['Item']:
+            item = {
+                'user_id': response['Item']['UserId']['S'],
+                'stop_id': int(response['Item']['StopId']['N'])
+            }
     print("item: {}".format(item))
     return item

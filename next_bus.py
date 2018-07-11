@@ -1,12 +1,14 @@
 from botocore.vendored import requests
 from datetime import datetime
 from ask_sdk_core.skill_builder import SkillBuilder
+from ask_sdk.standard import StandardSkillBuilder
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.dispatch_components import AbstractExceptionHandler
 from ask_sdk_core.utils import is_request_type, is_intent_name
 from ask_sdk_model.ui import SimpleCard
 from user_id_bus_table import get_user_bus_stop, put_user_bus_stop
-sb = SkillBuilder()
+
+sb = StandardSkillBuilder(table_name="BusStopState", auto_create_table=True)
 
 def get_next_bus(stop=7726):
     r = requests.get('https://www.metlink.org.nz/api/v1/StopDepartures/{0}'.format(stop))
@@ -53,9 +55,11 @@ class NextBusIntentHandler(AbstractRequestHandler):
                 SimpleCard("When's the next bus?", speech_text)).set_should_end_session(
                 True)
         else:
-            attr = handler_input.attributes_manager.persistent_attributes
+            # attr = handler_input.attributes_manager.persistent_attributes
+            attr = {}
             attr['bus_ stop'] = 'unknown'
             handler_input.attributes_manager.persistent_attributes = attr
+            handler_input.attributes_manager.save_persistent_attributes()
             speech_text = 'It looks like you have not yet set a default bus stop. Would you like to set one?'
             handler_input.response_builder.speak(speech_text).set_should_end_session(False)
         return handler_input.response_builder.response
