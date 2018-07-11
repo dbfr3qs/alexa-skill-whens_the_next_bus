@@ -67,6 +67,7 @@ class YesIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         attr = handler_input.attributes_manager.persistent_attributes
+        print("attr: {}".format(attr))
         if 'bus_stop' in attr:
             if attr['bus_stop'] == 'unknown':
                 speech_text = "Please state the number of your default bus stop"
@@ -79,8 +80,7 @@ class BusStopIntentHandler(AbstractRequestHandler):
         return is_intent_name("BusStopIntent")(handler_input)
         
     def handle(self, handler_input):
-        stop_id = int(handler_input.request_envelope.request.intent.slots[
-        "number"].value)
+        stop_id = int(handler_input.request_envelope.request.intent.slots["number"].value)
         put_user_bus_stop(handler_input.request_envelope.session.user.user_id, stop_id)
         bus = get_next_bus(stop_id)
         print(bus)

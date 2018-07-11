@@ -4,6 +4,7 @@ TABLE_NAME = 'UserIDBusStop'
 
 
 def put_user_bus_stop(user_id, stop):
+    print("Putting {0} into table".format(user_id))
     conn = boto3.client('dynamodb', 
                         region_name='us-east-1')
     response = conn.put_item(
@@ -20,6 +21,7 @@ def put_user_bus_stop(user_id, stop):
     return True if response['ResponseMetadata']['HTTPStatusCode'] else False
 
 def get_user_bus_stop(user_id):
+    print("getting {} from table".format(user_id))
     conn = boto3.client('dynamodb', 
                     region_name='us-east-1')
 
@@ -38,5 +40,5 @@ def get_user_bus_stop(user_id):
             'user_id': response['Item']['UserId']['S'],
             'stop_id': int(response['Item']['StopId']['N'])
         }
-
+    print("item: {}".format(item))
     return item
