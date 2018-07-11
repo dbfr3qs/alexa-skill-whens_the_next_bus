@@ -57,7 +57,7 @@ class NextBusIntentHandler(AbstractRequestHandler):
         else:
             # attr = handler_input.attributes_manager.persistent_attributes
             attr = {}
-            attr['bus_ stop'] = 'unknown'
+            attr['bus_stop'] = 'unknown'
             handler_input.attributes_manager.persistent_attributes = attr
             handler_input.attributes_manager.save_persistent_attributes()
             speech_text = 'It looks like you have not yet set a default bus stop. Would you like to set one?'
@@ -67,7 +67,7 @@ class NextBusIntentHandler(AbstractRequestHandler):
 class YesIntentHandler(AbstractRequestHandler):
     # Handler for Yes Intent
     def can_handle(self, handler_input):
-        return is_intent_name("YesIntent")(handler_input)
+        return is_intent_name("AMAZON.YesIntent")(handler_input)
 
     def handle(self, handler_input):
         attr = handler_input.attributes_manager.persistent_attributes
@@ -172,7 +172,8 @@ sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
 sb.add_request_handler(FallbackIntentHandler())
 sb.add_request_handler(SessionEndedRequestHandler())
-
+sb.add_request_handler(YesIntentHandler())
+sb.add_request_handler(BusStopIntentHandler())
 sb.add_exception_handler(CatchAllExceptionHandler())
 
 handler = sb.lambda_handler()
