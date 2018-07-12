@@ -37,7 +37,7 @@ def test_get_next_bus(mock_get):
         mock_get.return_value = mock_resp
 
         result = get_next_bus()
-        assert resp_json['Services'][0] == result
+        assert resp_json['Services'][0]['ServiceID'] == result['ServiceID']
 
         assert resp_json['Services'][0]['ExpectedDeparture'] == '2018-07-06T13:33:03+12:00'
 
