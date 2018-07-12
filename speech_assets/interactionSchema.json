@@ -33,10 +33,15 @@
                 },
                 {
                     "name": "NextBusIntent",
-                    "slots": [],
+                    "slots": [
+                        {
+                            "name": "number",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
                     "samples": [
                         "the next bus",
-                        "when's the next bus",
+                        "the next bus at stop {number}",
                         "when is the next bus",
                         "when is the next bus due",
                         "when's the next bus due",
