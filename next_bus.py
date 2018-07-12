@@ -24,7 +24,13 @@ def get_hour(time):
 
 def get_minutes(time):
     d = datetime.strptime(time, "%Y-%m-%dT%H:%M:%S+12:00")
-    return (d.minute if d.minute > 9 else "oh {0}".format(d.minute))
+    if d.minute == 0:
+        minutes = "oh clock"
+    elif d.minute > 9:
+        minutes = d.minute
+    else:
+        minutes = "oh {}".format(d.minute)
+    return minutes
 
 class LaunchRequestHandler(AbstractRequestHandler):
     # Handler for Skill Launch
