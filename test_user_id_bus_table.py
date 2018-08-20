@@ -44,9 +44,6 @@ def test_get_user_stop():
     )
 
     res = get_user_bus_stop(USER_ID)
-    assert res == {
-        'user_id': USER_ID,
-        'stop_id': STOP
-    }
-    
+    assert res == STOP
+
 

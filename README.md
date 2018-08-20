@@ -20,6 +20,19 @@ Alexa, tell me when is the next bus at stop {your-stop}
 
 When invoked this way, Alexa will ask you if you want to set your preferred stop to this stop.
 
+TODO:
+
+You can also ask Alexa for a specific bus:
+
+```
+Alexa, tell me when is the next number {your-bus} bus
+```
+
+Or at a specific stop:
+
+```
+Alex, tell me when is the next number {your-bus} bus at stop {your-stop}
+```
 
 ## Development ##
 

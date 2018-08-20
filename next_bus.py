@@ -47,7 +47,8 @@ class NextBusIntentHandler(AbstractRequestHandler):
         return is_intent_name("NextBusIntent")(handler_input)
 
     def handle(self, handler_input):
-        if 'number' in handler_input.request_envelope.request.intent.slots:
+        print(handler_input.request_envelope.request.intent.slots)
+        if handler_input.request_envelope.request.intent.slots['number'].value:
             bus_stop = int(handler_input.request_envelope.request.intent.slots['number'].value)
         else:
             bus_stop = get_user_bus_stop(handler_input.request_envelope.session.user.user_id)
@@ -56,7 +57,7 @@ class NextBusIntentHandler(AbstractRequestHandler):
         print("bus_stop: {}".format(bus_stop))
         
         if bus_stop:
-            bus = get_next_bus()
+            bus = get_next_bus(bus_stop)
             print(bus)
             d_time = bus['ExpectedDeparture']
             print(d_time)
