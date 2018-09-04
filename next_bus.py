@@ -139,22 +139,6 @@ class CancelOrStopIntentHandler(AbstractRequestHandler):
         return handler_input.response_builder.response
 
 
-class FallbackIntentHandler(AbstractRequestHandler):
-    # AMAZON.FallbackIntent is only available in en-US locale.
-    # This handler will not be triggered except in that locale,
-    # so it is safe to deploy on any locale
-    def can_handle(self, handler_input):
-        return is_intent_name("AMAZON.FallbackIntent")(handler_input)
-
-    def handle(self, handler_input):
-        speech_text = (
-            "The Hello World skill can't help you with that.  "
-            "You can say hello!!")
-        reprompt = "You can say hello!!"
-        handler_input.response_builder.speak(speech_text).ask(reprompt)
-        return handler_input.response_builder.response
-
-
 class SessionEndedRequestHandler(AbstractRequestHandler):
     # Handler for Session End
     def can_handle(self, handler_input):
