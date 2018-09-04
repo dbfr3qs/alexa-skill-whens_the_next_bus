@@ -42,7 +42,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
 
 class NextBusIntentHandler(AbstractRequestHandler):
-    # Handler for Hello World Intent
+    # Handler for Next Bus Intent
     def can_handle(self, handler_input):
         return is_intent_name("NextBusIntent")(handler_input)
 
@@ -68,7 +68,6 @@ class NextBusIntentHandler(AbstractRequestHandler):
                 SimpleCard("When's the next bus?", speech_text)).set_should_end_session(
                 True)
         else:
-            # attr = handler_input.attributes_manager.persistent_attributes
             attr = {}
             attr['bus_stop'] = 'unknown'
             handler_input.attributes_manager.persistent_attributes = attr
@@ -92,7 +91,7 @@ class YesIntentHandler(AbstractRequestHandler):
         return handler_input.response_builder.response
 
 class BusStopIntentHandler(AbstractRequestHandler):
-    # Handler for Yes Intent
+    # Handler for Bus Stop Intent
     def can_handle(self, handler_input):
         return is_intent_name("BusStopIntent")(handler_input)
         
