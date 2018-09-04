@@ -90,6 +90,19 @@ class BusStopIntentHandler(AbstractRequestHandler):
             True)
         return handler_input.response_builder.response
 
+class WhatStopIntentHandler(AbstractRequestHandler):
+    # Handler for Bus Stop Intent
+    def can_handle(self, handler_input):
+        return is_intent_name("WhatStopIntent")(handler_input)
+        
+    def handle(self, handler_input):
+        bus_stop = get_user_bus_stop(handler_input.request_envelope.session.user.user_id)
+        speech_text = "Your stop is set to {0}".format(bus_stop)
+        handler_input.response_builder.speak(speech_text).set_card(
+            SimpleCard("When's the next bus?", speech_text)).set_should_end_session(
+            True)
+        return handler_input.response_builder.response
+
 class HelpIntentHandler(AbstractRequestHandler):
     # Handler for Help Intent
     def can_handle(self, handler_input):

@@ -20,6 +20,10 @@
                     ]
                 },
                 {
+                    "name": "WhatStopIntent",
+                    "samples": []
+                },
+                {
                     "name": "AMAZON.CancelIntent",
                     "samples": []
                 },
