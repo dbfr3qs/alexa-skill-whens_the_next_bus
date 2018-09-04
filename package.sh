@@ -1,2 +1,6 @@
-#!/bin/sh
-zip lambda_handler.zip next_bus.py user_id_bus_table.py
+#!/bin/bash
+if [ -e "lambda_handler.zip" ];
+then
+    rm -f lambda_handler.zip
+fi
+zip -r lambda_handler.zip next_bus.py ./bus -x */__pycache__/*
