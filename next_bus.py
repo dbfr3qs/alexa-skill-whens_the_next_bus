@@ -6,31 +6,11 @@ from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.dispatch_components import AbstractExceptionHandler
 from ask_sdk_core.utils import is_request_type, is_intent_name
 from ask_sdk_model.ui import SimpleCard
-from user_id_bus_table import get_user_bus_stop, put_user_bus_stop
+from bus.user_id_bus_table import get_user_bus_stop, put_user_bus_stop
+from bus.bus import get_hour, get_minutes, get_next_bus
 
 sb = StandardSkillBuilder(table_name="BusStopState", auto_create_table=True)
 
-def get_next_bus(stop=7726):
-    r = requests.get('https://www.metlink.org.nz/api/v1/StopDepartures/{0}'.format(stop))
-    return r.json()['Services'][0]
-
-def get_hour(time):
-    d = datetime.strptime(time, "%Y-%m-%dT%H:%M:%S+12:00")
-    if d.hour > 12:
-        hr = d.hour - 12
-    else:
-        hr = d.hour
-    return hr
-
-def get_minutes(time):
-    d = datetime.strptime(time, "%Y-%m-%dT%H:%M:%S+12:00")
-    if d.minute == 0:
-        minutes = "oh clock"
-    elif d.minute > 9:
-        minutes = d.minute
-    else:
-        minutes = "oh {}".format(d.minute)
-    return minutes
 
 class LaunchRequestHandler(AbstractRequestHandler):
     # Handler for Skill Launch

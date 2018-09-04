@@ -1,4 +1,4 @@
-from user_id_bus_table import put_user_bus_stop, get_user_bus_stop
+from bus.user_id_bus_table import put_user_bus_stop, get_user_bus_stop
 from moto import mock_dynamodb2
 import boto3
 

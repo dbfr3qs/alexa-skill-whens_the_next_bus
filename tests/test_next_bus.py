@@ -1,7 +1,7 @@
 import unittest
 from unittest import mock
 import json
-from next_bus import get_next_bus, get_hour, get_minutes
+from bus.bus import get_next_bus, get_hour, get_minutes
 
 def _mock_response(
         status=200,
